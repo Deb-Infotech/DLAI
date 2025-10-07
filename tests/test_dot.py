@@ -25,6 +25,9 @@ def test_dot_numpy_1D(vector1, vector2, shape: tuple, expected_value: int):
     print(f'vector2 - \n {vector2}')
     vector_dot = dot.numpy_dot(vector1, vector2)
     print(f'vector dot - \n{vector_dot}')
+    assert type(vector_dot) == numpy.int64
+    assert isinstance(vector_dot, numpy.int64)
+    assert vector_dot.shape == ()
     shape_v1 = numpy.array(vector1).shape
     shape_v2 = numpy.array(vector2).shape
     assert shape_v1 == shape_v2, \
@@ -40,6 +43,8 @@ def test_dot_numpy_2D(vector1, shape1: tuple, vector2, shape2: tuple, dot_exp_sh
     print(f'vector2 - \n {vector2}')
     vector_dot = dot.numpy_dot(vector1, vector2)
     print(f'vector dot - \n{vector_dot}')
+    assert type(vector_dot) == numpy.ndarray
+    assert isinstance(vector_dot, numpy.ndarray)
     shape_v1 = numpy.array(vector1).shape
     shape_v2 = numpy.array(vector2).shape
     assert shape_v1 == shape1, f'Actual Vector1 shape - {shape_v1} does not match expected shape - {shape1}'
@@ -57,6 +62,8 @@ def test_dot_tensor_1D(vector1, vector2, shape: tuple, expected_value: int):
     print(f'vector2 - \n {vector2}')
     vector_dot = dot.tensor_dot(vector1, vector2)
     print(f'vector dot - \n{vector_dot}')
+    assert type(vector_dot) == torch.Tensor
+    assert isinstance(vector_dot, torch.Tensor)
     shape_v1 = torch.tensor(vector1).shape
     shape_v2 = torch.tensor(vector2).shape
     assert shape_v1 == shape_v2, \
@@ -72,6 +79,8 @@ def test_dot_tensor_2D(vector1, shape1: tuple, vector2, shape2: tuple, dot_exp_s
     print(f'vector2 - \n {vector2}')
     vector_dot = dot.tensor_dot(vector1, vector2)
     print(f'vector dot - \n{vector_dot}')
+    assert type(vector_dot) == torch.Tensor
+    assert isinstance(vector_dot, torch.Tensor)
     shape_v1 = torch.tensor(vector1).shape
     shape_v2 = torch.tensor(vector2).shape
     assert shape_v1 == shape1, f'Actual Vector1 shape - {shape_v1} does not match expected shape - {shape1}'
