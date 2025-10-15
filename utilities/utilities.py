@@ -1,18 +1,17 @@
 import os
-import random
-import string
+from datetime import datetime
 from pathlib import Path
 
-import numpy
+import matplotlib
+
+matplotlib.use('Agg')  # Use non-interactive backend
+import numpy as np
 from matplotlib import pyplot
 
 
-def get_random_num_or_text(size: int = 5, numeric: bool = False):
-    # txt = f'{"".join(random.choices(string.ascii_letters, k=size))}'
-    # return txt
-
-    return f'{"".join(random.choices(string.ascii_letters, k=size))}' \
-        if numeric is False else f'{"".join(random.choices(string.digits, k=size))}'
+def get_current_date_time_stamp():
+    dt_time: datetime = datetime.now()
+    return dt_time.strftime("%d_%m_%y_%H_%M_%S") + f'_{dt_time.microsecond // 1000:03d}'
 
 
 def get_file_name_without_extension(filename):
@@ -24,7 +23,7 @@ def get_file_name_extension(filename):
 
 
 def get_numpy_random_nd_array(lowerint=-10, higherint=10, size: int = 10):
-    return numpy.random.randint(lowerint, higherint, size)
+    return np.sort(np.random.choice(range(lowerint, higherint), size=size, replace=False))
 
 
 def plot_save_graphs(graph_info_tuple: tuple):
@@ -43,7 +42,7 @@ def plot_save_graphs(graph_info_tuple: tuple):
             pass
     graph_file_name_wo_ext = get_file_name_without_extension(os.path.join(graph_folder, graph_file_name))
     graph_file_extension = get_file_name_extension(os.path.join(graph_folder, graph_file_name))
-    graph_file_name = f'{graph_file_name_wo_ext}_{get_random_num_or_text(5, numeric=True)}{graph_file_extension}'
+    graph_file_name = f'{graph_file_name_wo_ext}_{get_current_date_time_stamp()}{graph_file_extension}'
     graph_file_name = os.path.join(graph_folder, graph_file_name)
     pyplot.savefig(graph_file_name)
     pyplot.close()
