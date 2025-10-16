@@ -32,12 +32,10 @@ def plot_save_graphs(graph_info_tuple: tuple):
     pyplot.xlabel(x_label)
     pyplot.ylabel(y_label)
     pyplot.title(graph_title)
-    folder_path = os.path.dirname(graph_file_name)
-    graph_folder = "graphs"
-    graph_folder = os.path.join(folder_path, graph_folder)
+    graph_folder = os.path.dirname(graph_file_name)
     if not os.path.exists(graph_folder):
         try:
-            os.mkdir(graph_folder)
+            os.makedirs(graph_folder, exist_ok=True)
         except FileExistsError:
             pass
     graph_file_name_wo_ext = get_file_name_without_extension(os.path.join(graph_folder, graph_file_name))

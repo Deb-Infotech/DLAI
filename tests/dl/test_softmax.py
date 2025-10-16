@@ -1,6 +1,7 @@
 import numpy
 import pytest
 
+from src.constants import *
 from src.dl.maths import softmax
 from utilities import utilities
 
@@ -26,7 +27,9 @@ def test_softmax_numpy(vector1, request):
         f' X -> Vectors',
         f'Softmax $\sigma$',
         f'Softmax - $\sum \sigma$ = {round(sum_soft_max)}',
-        f'{request.node.name}.png'  ## request is build in fixture which provides access to test context
+        f'{parent_folder}.{file_sep_char}output{file_sep_char}test{file_sep_char}dl{file_sep_char}'
+        f'softmax{file_sep_char}graphs{file_sep_char}{request.node.name}.png'
+        ## request is build in fixture which provides access to test context
     )
     utilities.plot_save_graphs(graph_info_tuple)
 
