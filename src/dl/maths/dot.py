@@ -1,3 +1,7 @@
+"""
+Date                Author                      Description
+16/Oct/25          Debasish P                  dot operation
+"""
 import numpy
 import torch
 
