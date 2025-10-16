@@ -18,11 +18,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
       - uses: actions/checkout@v4
+
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
           python-version: "3.10"
+
       - name: Install dependencies
         run: |
           echo "Creating virtual environment..."
@@ -35,6 +38,7 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install flake8
+
       - name: Lint with flake8
         run: |
           source venv/bin/activate
@@ -42,19 +46,35 @@ jobs:
           flake8 . --exclude=venv --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
       - name: Test with pytest
         run: |
           source venv/bin/activate
           pytest
-      - name: Upload JUnit Test Result
+
+      - name: Upload JUnit And PyTest HTML Test Result
         uses: actions/upload-artifact@v4
         with:
-          name: pytest junit report(junit folder)
-          path: junit/
-      - name: Upload PyTest HTML Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: PyTest HTML Report(reports folder)
+          name: JUnit And PyTest HTML Test Result
           path: |
+            junit/
             reports/
+
+      - name: Publish PyTest Junit Style Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: PyTest JUnit Style Report
+          path: junit/report.xml
+          reporter: pytest
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+
+
+
+
 
