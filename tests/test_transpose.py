@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 import torch
 
-from maths.transpose import numpy_transpose, torch_transpose
+from src.dl.maths.transpose import numpy_transpose, torch_transpose
 
 test_matrix = [([[1], [2], [3], [4]], [[1, 2, 3, 4]], (1, 4)),
                ([[5, 6, 7, 8]], [[5], [6], [7], [8]], (4, 1)),

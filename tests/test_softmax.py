@@ -1,7 +1,7 @@
 import numpy
 import pytest
 
-from maths import softmax
+from src.dl.maths import softmax
 from utilities import utilities
 
 vectors_1D = [([1, 3, 5, 7]), ([-2, -1, 0, 1]), ([-10, -7, -4, -1])]

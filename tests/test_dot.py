@@ -2,7 +2,7 @@ import numpy
 import pytest
 import torch
 
-from maths import dot
+from src.dl.maths import dot
 
 vectors_1D = [([1, 3, 5, 7], [2, 4, 6, 8], (4,), 100), ([-1, 4, -2, 9], [5, -2, 4, -2], (4,), -39)]
 vectors_2D = [([[1, 3, 5, 7]], (1, 4), [[2], [4], [6], [8]], (4, 1), (1, 1), [[100]]),
