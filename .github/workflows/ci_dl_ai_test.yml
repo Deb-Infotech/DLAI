@@ -45,12 +45,12 @@ jobs:
         run: |
           pytest
       - name: Upload JUnit Test Result
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pytest junit report(junit folder)
           path: junit/
       - name: Upload PyTest HTML Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PyTest HTML Report(reports folder)
           path: |
