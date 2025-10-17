@@ -78,7 +78,9 @@ jobs:
         with:
           personal_token: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
           publish_dir: ./reports
-          fail-on-error: false
+          #fail-on-error: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
 
 
 
