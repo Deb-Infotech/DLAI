@@ -68,13 +68,13 @@ jobs:
           path: junit/report.xml
           reporter: java-junit
         env:
-          GITHUB_TOKEN: ${{ secrets.DLAI_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
 
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.DLAI_TOKEN }}
+          github_token: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
           publish_dir: ./reports
 
 
