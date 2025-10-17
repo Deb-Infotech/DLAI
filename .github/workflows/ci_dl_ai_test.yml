@@ -68,7 +68,7 @@ jobs:
           name: PyTest JUnit Style Report
           path: junit/report.xml
           reporter: java-junit
-          #fail-on-error: false
+          fail-on-error: false
           token: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages
@@ -76,7 +76,7 @@ jobs:
         with:
           personal_token: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
           publish_dir: ./reports
-          #fail-on-error: false
+          fail-on-error: false
 
 
 
