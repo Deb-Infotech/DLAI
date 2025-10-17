@@ -68,8 +68,10 @@ jobs:
           name: PyTest JUnit Style Report
           path: junit/report.xml
           reporter: java-junit
-          fail-on-error: false
-          token: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
+          #fail-on-error: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
+
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
