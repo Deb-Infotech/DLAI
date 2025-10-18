@@ -4,10 +4,12 @@
 name: DL AI CI Test Execution
 
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  workflow_dispatch: # Manual Execution From GitHub Actions
+#  # Enable below push if automated execution required
+#  push:
+#    branches: [ "master" ]
+#  pull_request:
+#    branches: [ "master" ]
 
 permissions:
   contents: write
@@ -29,7 +31,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install dependencies
+      - name: Create Virtual Environment
         run: |
           echo "Creating virtual environment..."
           pip install virtualenv
@@ -37,25 +39,29 @@ jobs:
           python -m venv venv
           echo "Ran: python -m venv venv"
           source venv/bin/activate
+
+      - name: Install dependencies In Virtual Environment
+        run: |
+          source venv/bin/activate
           echo "Ran: source venv/bin/activate"
           pip install --upgrade pip
           pip install -r requirements.txt
           pip install flake8
-          
-          - name: Lint with flake8
-          run: |
-            source venv/bin/activate
-            # stop the build if there are Python syntax errors or undefined names
-            flake8 . --exclude=venv --count --select=E9,F63,F7,F82 --show-source --statistics
-            # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-            flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      - name: Test with pytest
+      - name: Linting Coding Best Practices With flake8
+        run: |
+          source venv/bin/activate
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --exclude=venv --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Execute Tests with pytest
         run: |
           source venv/bin/activate
           pytest
 
-      - name: Upload JUnit And PyTest HTML Test Result
+      - name: Archive JUnit And PyTest HTML Test Result
         uses: actions/upload-artifact@v4
         with:
           name: JUnit And PyTest HTML Test Result
