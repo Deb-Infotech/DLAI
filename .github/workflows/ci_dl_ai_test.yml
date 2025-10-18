@@ -4,12 +4,14 @@
 name: DL AI CI Test Execution
 
 on:
-  workflow_dispatch: # Manual Execution From GitHub Actions
-#  # Enable below push if automated execution required
-#  push:
-#    branches: [ "master" ]
-#  pull_request:
-#    branches: [ "master" ]
+  #  workflow_dispatch: # Manual Execution From GitHub Actions
+  # Enable below push if automated execution required
+  push:
+    #    branches: [ "master" ] " Applicable on all branches
+    branches-ignore: [ "temp*" ]
+
+  pull_request:
+    branches: [ "master", "develop" ]
 
 permissions:
   contents: write
@@ -94,8 +96,9 @@ jobs:
             const html_reportUrl = `https://${owner}.github.io/${repo}/report.html`;
             const dashboard_reportUrl = `https://${owner}.github.io/${repo}/report_dashboard.html`;
             core.summary
-              .addHeading('HTML Report')
-              .addLink('View HTML Report', html_reportUrl)
+              .addHeading('PyTest HTML Report')
+              .addLink('View PyTest HTML Report', html_reportUrl)
+              .addLink('View PyTest HTML Dashboard Report', html_reportUrl)
               .write();
       
 
