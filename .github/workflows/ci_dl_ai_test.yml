@@ -91,10 +91,15 @@ jobs:
           script: |
             const owner = process.env.GITHUB_REPOSITORY_OWNER;
             const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
-            const reportUrl = `https://${owner}.github.io/${repo}/report.html`;
+            const html_reportUrl = `https://${owner}.github.io/${repo}/reports/report.html`;
+            const dashboard_reportUrl = `https://${owner}.github.io/${repo}/reports/report_dashboard.html`;
             core.summary
               .addHeading('HTML Report')
-              .addLink('View Report', reportUrl)
+              .addLink('View HTML Report', html_reportUrl)
+              .write();
+            core.summary
+              .addHeading('Dashboard HTML Report')
+              .addLink('View Dashboard Report', dashboard_reportUrl)
               .write();
       
 
