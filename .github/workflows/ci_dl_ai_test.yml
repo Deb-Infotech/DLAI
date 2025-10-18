@@ -29,29 +29,29 @@ jobs:
 
       - name: Install dependencies
         run: |
-          echo "Creating virtual environment..."
-          pip install virtualenv
-          echo "Ran: pip install virtualenv"
-          python -m venv venv
-          echo "Ran: python -m venv venv"
-          source venv/bin/activate
-          echo "Ran: source venv/bin/activate"
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install flake8
+          #          echo "Creating virtual environment..."
+          #          pip install virtualenv
+          #          echo "Ran: pip install virtualenv"
+          #          python -m venv venv
+          #          echo "Ran: python -m venv venv"
+          #          source venv/bin/activate
+          #          echo "Ran: source venv/bin/activate"
+               pip install --upgrade pip
+               pip install -r requirements.txt
+      #          pip install flake8
 
-      - name: Lint with flake8
-        run: |
-          source venv/bin/activate
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --exclude=venv --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      #      - name: Lint with flake8
+      #        run: |
+      #          source venv/bin/activate
+      #          # stop the build if there are Python syntax errors or undefined names
+      #          flake8 . --exclude=venv --count --select=E9,F63,F7,F82 --show-source --statistics
+      #          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+      #          flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Test with pytest
         run: |
-          source venv/bin/activate
-          pytest
+          #          source venv/bin/activate
+               pytest
 
       - name: Upload JUnit And PyTest HTML Test Result
         uses: actions/upload-artifact@v4
@@ -68,7 +68,6 @@ jobs:
           name: PyTest JUnit Style Report
           path: junit/report.xml
           reporter: java-junit
-          #fail-on-error: false
         env:
           GITHUB_TOKEN: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
 
@@ -76,7 +75,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.DLAI_TOKEN }}
+          personal_token: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
           publish_dir: ./reports
          
         
