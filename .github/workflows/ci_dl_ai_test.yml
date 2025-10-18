@@ -71,14 +71,27 @@ jobs:
           path: junit/report.xml
           reporter: java-junit
         env:
-          #           GITHUB_TOKEN: ${{ secrets.CLASSIC_GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      #      - name: Deploy to GitHub Pages
+      #        uses: peaceiris/actions-gh-pages@v3
+      #        with:
+      #          github_token: ${{ secrets.GITHUB_TOKEN }}
+      #          publish_dir: ./reports
+
+      - name: Add html report link to summary
+        uses: actions/github-script@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports
+          script: |
+            const owner = process.env.GITHUB_REPOSITORY_OWNER;
+            const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
+            const reportUrl = `https://${owner}.github.io/${repo}/report.html`;
+            core.summary
+              .addHeading('HTML Report')
+              .addLink('View Report', reportUrl)
+              .write();
+      
+
          
         
 
