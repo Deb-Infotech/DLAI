@@ -79,11 +79,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #      - name: Deploy to GitHub Pages
-      #        uses: peaceiris/actions-gh-pages@v3
-      #        with:
-      #          github_token: ${{ secrets.GITHUB_TOKEN }}
-      #          publish_dir: ./reports
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
 
       - name: Add html report link to summary
         uses: actions/github-script@v6
@@ -91,15 +91,11 @@ jobs:
           script: |
             const owner = process.env.GITHUB_REPOSITORY_OWNER;
             const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
-            const html_reportUrl = `https://${owner}.github.io/${repo}/reports/report.html`;
-            const dashboard_reportUrl = `https://${owner}.github.io/${repo}/reports/report_dashboard.html`;
+            const html_reportUrl = `https://${owner}.github.io/${repo}/report.html`;
+            const dashboard_reportUrl = `https://${owner}.github.io/${repo}/report_dashboard.html`;
             core.summary
               .addHeading('HTML Report')
               .addLink('View HTML Report', html_reportUrl)
-              .write();
-            core.summary
-              .addHeading('Dashboard HTML Report')
-              .addLink('View Dashboard Report', dashboard_reportUrl)
               .write();
       
 
