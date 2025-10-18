@@ -98,7 +98,8 @@ jobs:
             core.summary
               .addHeading('PyTest HTML Report')
               .addLink('View PyTest HTML Report', html_reportUrl)
-              .addLink('View PyTest HTML Dashboard Report', html_reportUrl)
+              .addRaw('\n')
+              .addLink('View PyTest HTML Dashboard Report', dashboard_reportUrl)
               .write();
       
 
