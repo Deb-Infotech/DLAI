@@ -4,7 +4,7 @@
 name: DL AI CI Test Execution
 
 on:
-  #  workflow_dispatch: # Manual Execution From GitHub Actions
+  workflow_dispatch: # Manual Execution From GitHub Actions
   # Enable below push if automated execution required
   push:
     #    branches: [ "master" ] " Applicable on all branches
@@ -40,7 +40,7 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-            
+
       - name: Create Virtual Environment
         run: |
           echo "Creating virtual environment..."
