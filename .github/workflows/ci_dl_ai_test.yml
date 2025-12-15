@@ -28,10 +28,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.9
+      - name: Set up Python 3.1
         uses: actions/setup-python@v3
         with:
-          python-version: "3.9"
+          python-version: "3.1"
 
       - name: Cache Python dependencies
         uses: actions/cache@v3
@@ -43,13 +43,14 @@ jobs:
 
       - name: Create Virtual Environment
         run: |
-          # echo "Creating virtual environment..."
-          # pip install virtualenv
+          echo "Creating virtual environment..."
+          # pip install virtualenv # Not required as virtualenv is part of standard library post python 3.3
+          # echo "Ran: pip install virtualenv"
           python --version
-          echo "Ran: pip install virtualenv"
           python -m venv venv
           echo "Ran: python -m venv venv"
           source venv/bin/activate
+          echo "Virtual environment created..."
 
       - name: Install dependencies In Virtual Environment
         run: |
