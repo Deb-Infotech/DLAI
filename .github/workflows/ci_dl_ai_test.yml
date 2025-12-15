@@ -85,14 +85,17 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: PyTest JUnit Style Report
+          name: PyTest Test Result (JUnit Style)
           path: junit/report.xml
           reporter: java-junit
+          # junit plugin will represent test results from junit/report.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy pytest html reports to GitHub Pages
+      - name: Deploy reports folder to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        # this will dump contents of ./reports folder to branch - gh-pages
+        # GitHub Pages under repository is configured to have a live site build on content in branch - gh-pages
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./reports
