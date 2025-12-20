@@ -28,50 +28,50 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
+      - name: Set up Python 3.14
         uses: actions/setup-python@v3
         with:
-          python-version: "3.10"
+          python-version: "3.14"
 
-      - name: Cache Python dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+      #      - name: Cache Python dependencies
+      #        uses: actions/cache@v3
+      #        with:
+      #          path: ~/.cache/pip
+      #          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+      #          restore-keys: |
+      #            ${{ runner.os }}-pip-
 
-      - name: Create Virtual Environment
-        run: |
-          echo "Creating virtual environment..."
-          # pip install virtualenv # Not required as virtualenv is part of standard library post python 3.3
-          # echo "Ran: pip install virtualenv"
-          python --version
-          python -m venv venv
-          echo "Ran: python -m venv venv"
-          source venv/bin/activate
-          echo "Virtual environment created..."
+      #      - name: Create Virtual Environment
+      #        run: |
+      #          echo "Creating virtual environment..."
+      #          # pip install virtualenv # Not required as virtualenv is part of standard library post python 3.3
+      #          # echo "Ran: pip install virtualenv"
+      #          python --version
+      #          python -m venv venv
+      #          echo "Ran: python -m venv venv"
+      #          source venv/bin/activate
+      #          echo "Virtual environment created..."
 
-      - name: Install dependencies In Virtual Environment
-        run: |
-          source venv/bin/activate
-          echo "Ran: source venv/bin/activate"
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install flake8
+      #      - name: Install dependencies In Virtual Environment
+      #        run: |
+      #          source venv/bin/activate
+      #          echo "Ran: source venv/bin/activate"
+      #          pip install --upgrade pip
+      #          pip install -r requirements.txt
+      #          pip install flake8
 
       - name: Linting Coding Best Practices With flake8
         run: |
-          source venv/bin/activate
+          pip install uv
+          uv add flake8
           # stop the build if there are Python syntax errors or undefined names
-          flake8 . --exclude=venv --count --select=E9,F63,F7,F82 --show-source --statistics
+          uv run flake8 . --exclude=.venv --count --select=E9,F63,F7,F82 --show-source --statistics
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --exclude=venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          uv run flake8 . --exclude=.venv --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Execute Tests with pytest
         run: |
-          source venv/bin/activate
-          pytest
+          uv run pytest
 
       - name: Archive JUnit And PyTest HTML Test Result
         uses: actions/upload-artifact@v4
