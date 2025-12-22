@@ -4,3 +4,6 @@ pytest-html-reporter>=0.2.6
 numpy>=1.26.4
 torch>=2.2.2
 matplotlib>=3.8.4
+openai>=2.14.0
+python-dotenv>=1.2.1
+ollama
