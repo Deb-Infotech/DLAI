@@ -8,12 +8,12 @@ from src.llm.AIModel import AIModel
 
 class OpenAIModel(AIModel):
     def __init__(self, model_name: str):
+        super().__init__(model_name=model_name)
         # Load environment variables from a .env file
         dotenv.load_dotenv()
         # by default, the OpenAI library reads the API key from the OPENAI_API_KEY environment variable
-        #api_key = os.getenv("OPENAI_API_KEY")
+        # api_key = os.getenv("OPENAI_API_KEY")
         self.client = OpenAI()
-        super().__init__(model_name=model_name)
 
     def execute(self, prompt: str) -> str:
         response = self.client.responses.create(
