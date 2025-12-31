@@ -1,0 +1,5 @@
+1. ollama response - Native Response Type. follows dictionary pattern internally. dot operator (response.response) or dictionary (response[response] pattern works.
+2. openAI - response - Native GenerateResponse, ChatResponse, EmbedResponse type. output_text is best way to fetch output text using response.output_text. 
+output_text is internaly property to GenerateResponse
+other way - response.output[0].content[0].text -> follows dictionary pattern
+dictionary view can be seen - response.dump_model_json
