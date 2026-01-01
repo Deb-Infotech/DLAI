@@ -14,9 +14,17 @@ class OpenAIModel(AIModel):
         self.client = OpenAI()
 
     def execute(self, prompt: str) -> str:
-        response = self.client.responses.create(
+        resp = self.client.responses.create(
             model=self.model_name,
-            input="who is prime minister of India?"
+            input=prompt,
         )
-
-        return response.output_text
+        print("Response object:", resp)
+        return resp.output_text
+        # resp2 = self.client.chat.completions.create(model=self.model_name, messages=
+        # [
+        #     {"role": "system", "content": "You are a helpful assistant to provide General knowledge answers."},
+        #     {"role": "user", "content": prompt}
+        # ]
+        #                                             )
+        # print("Chat Completion Response object:", resp2)
+        # return resp2.choices[0].message.content

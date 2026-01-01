@@ -16,5 +16,5 @@ class OllamaAIModel(AIModel):
                              headers={'Authorization': 'Bearer ' + os.getenv('OLLAMA_API_KEY')})
 
     def execute(self, prompt: str) -> str:
-        response = self.client.generate(self.model_name, prompt=prompt)
-        return response['response']
+        resp = self.client.generate(self.model_name, prompt=prompt)
+        return resp['response']
