@@ -1,0 +1,30 @@
+1. ollama response - Native Response Type. follows dictionary pattern internally. dot operator (response.response) or dictionary (response[response] pattern works.
+2. openAI - response - Native GenerateResponse, ChatResponse, EmbedResponse type. output_text is best way to fetch output text using response.output_text. 
+
+OpenAI Response Sample On Calling -
+client = OpenAI()
+client.responses.create(
+    model="gpt-4.1-mini-2025-04-14",
+    input="who is prime minister of India?"
+    ]
+)
+Response(id='resp_0a25c8938bcfd9e10069561629f53c81938507fcba4c13e60e', created_at=1767249449.0, error=None, incomplete_details=None, instructions=None, metadata={}, model='gpt-4.1-mini-2025-04-14', object='response', output=[ResponseOutputMessage(id='msg_0a25c8938bcfd9e1006956162adf448193a667f77bc113a394', content=[ResponseOutputText(annotations=[], text='As of June 2024, the Prime Minister of India is Narendra Modi.', type='output_text', logprobs=[])], role='assistant', status='completed', type='message')], parallel_tool_calls=True, temperature=1.0, tool_choice='auto', tools=[], top_p=1.0, background=False, conversation=None, max_output_tokens=None, max_tool_calls=None, previous_response_id=None, prompt=None, prompt_cache_key=None, prompt_cache_retention=None, reasoning=Reasoning(effort=None, generate_summary=None, summary=None), safety_identifier=None, service_tier='default', status='completed', text=ResponseTextConfig(format=ResponseFormatText(type='text'), verbosity='medium'), top_logprobs=0, truncation='disabled', usage=ResponseUsage(input_tokens=14, input_tokens_details=InputTokensDetails(cached_tokens=0), output_tokens=17, output_tokens_details=OutputTokensDetails(reasoning_tokens=0), total_tokens=31), user=None, billing={'payer': 'developer'}, completed_at=1767249451, store=True)
+dictionary view can be seen - response.dump_model_json
+fetch - response.output[0].content[0].text -> follows dictionary pattern
+output_text is internal property to GenerateResponse
+client.responses.create().output_text -> gives output text directly
+
+Ollama Response Sample On Calling -
+client = Client(host='https://ollama.com',
+                             headers={'Authorization': 'Bearer ' + os.getenv('OLLAMA_API_KEY')})
+resp = self.client.generate(self.model_name, prompt=prompt)
+GenerateResponse(model='gpt-oss:120b', created_at='2026-01-01T07:16:04.28717719Z', done=True, done_reason='stop', total_duration=1407066241, load_duration=None, prompt_eval_count=74, prompt_eval_duration=None, eval_count=204, eval_duration=None, response='As of\u202fJanuary\u202f1\u202f2026, the Prime Minister of India is **Narendra\u202fModi**. He has been serving in the role since May\u202f2014 and was re‑elected following the 2024 general election, continuing his tenure into 2026 as the leader of the Bharatiya Janata Party (BJP).', thinking='The user asks: "who is prime minister of India?" The current date is 2026-01-01. Need to give the current PM as of that date. As of 2023, Narendra Modi is PM. Assuming no change unless upcoming elections 2024... Indian general election 2024 held; Modi won second term, continues as PM. Unless something else happened. In 2026, likely still Modi unless there\'s early election or change. No known events up to 2026 in real world. So answer: Narendra Modi. Provide context, maybe mention party. Also note date.', context=None, logprobs=None)
+
+client.chat.completions.create(
+    model="gpt-4.1-mini-2025-04-14",
+    messages=[
+        {"role": "user", "content": "Who is the Prime Minister of India as of June 2024?"}
+    ]
+)
+chat completion response will have similar structure of ChatCompletion type
+To fetch information - response.choices[0].message.content is used when chat completion is used.
