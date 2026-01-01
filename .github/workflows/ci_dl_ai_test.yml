@@ -72,6 +72,7 @@ jobs:
       - name: Execute Tests with pytest
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OLLAMA_API_KEY: ${{ secrets.OLLAMA_API_KEY }}
         run: |
           uv run pytest
 
