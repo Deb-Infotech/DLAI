@@ -1,0 +1,2 @@
+in case of error with uv installation, try link-mode
+uv add pytest-html --link-mode=copy
