@@ -1,2 +1,10 @@
-in case of error with uv installation, try link-mode
-uv add pytest-html --link-mode=copy
+in case of error with uv installation, try link-mode after cleaning cache
+cache cleaning - 
+uv clean cache
+cleans cache from folder - "{USERPROFILE}\AppData\Local\uv\cache"
+
+uv synch with link mode
+uv sync --link-mode=copy
+
+# to resolve sync issue on pycham
+uv pip install pip
