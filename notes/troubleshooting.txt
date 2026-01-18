@@ -8,3 +8,7 @@ uv sync --link-mode=copy
 
 # to resolve sync issue on pycham
 uv pip install pip
+
+# remove check-in track
+git rm --cached .env
+git commit -m "Stop tracking .env file"
