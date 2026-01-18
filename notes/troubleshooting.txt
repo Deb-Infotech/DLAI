@@ -1,0 +1,14 @@
+in case of error with uv installation, try link-mode after cleaning cache
+cache cleaning - 
+uv clean cache
+cleans cache from folder - "{USERPROFILE}\AppData\Local\uv\cache"
+
+uv synch with link mode
+uv sync --link-mode=copy
+
+# to resolve sync issue on pycham
+uv pip install pip
+
+# remove check-in track
+git rm --cached .env
+git commit -m "Stop tracking .env file"
