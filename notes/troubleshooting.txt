@@ -12,3 +12,19 @@ uv pip install pip
 # remove check-in track
 git rm --cached .env
 git commit -m "Stop tracking .env file"
+
+running on particular python version
+
+uv python pin 3.11
+
+Steps to solve pytest not detected by pycharm 
+1. pytests was getting installed on root directory not pytest directory
+Started Fresh -
+1. Deleted .venv folder
+2. uninstalled uv from root python or %appdata% folder
+3. activated .venv from commandline - py -m venv .venv
+4. .venv\Scripts\activate.bat [(.venv) should appear in front of path]
+5. uv init (created pyproject.toml with project name = foldername)
+5. uv add playwright pytest pytest-playwright requests
+6. pycharm was able to find pytest now
+
